@@ -1,0 +1,32 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.news{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.top{
+  width: 98%;
+  height: 80px;
+  display: flex;
+}
+.top div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top-logo,
+.top-btn
+{
+  width: 20%;
+}
+.top-search{
+  width: 60%;
+}
+.content{
+  display: flex;
+}
