@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-mall</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="mall">
+    <div class="shop-list">
+      <div class="shop-list-item" v-for="(item,index) in products">
+        <div class=""><img :src="item.image" alt=""></div>
+        <div class="info">
+          <h1>{{item.title}}</h1>
+          <div>{{item.description}}</div>
+          <div class="price">{{showPrice(item.price)}}</div>
+          <div class="others">
+            <div class="add-cart-btn" @click="addToCart(index)">加入购物车</div>
+            <span>{{"库存剩余:"+item.availableInventory}}</span>
+            <div v-for="(v,i) in 5" class="star">
+              <div v-if="i <= item.rating"><img src="img/star_active.svg" alt=""></div>
+              <div v-else><img src="img/star.svg" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>合计：{{showPrice(totalPrice)}}</span>
+      <div class="count">{{count}}</div>
+      <div class="account"><a href="info.html">去结算</a></div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#mall',
+      data: {
+        count: 0,
+        totalPrice: 0,
+        products: [
+          {
+            id: 1001,
+            title: "iPhone",
+            description: "new iPhone",
+            price: 5999,
+            image: "img/apple.jpg",
+            availableInventory: 10,
+            rating: 4
+          },
+          {
+            id: 1002,
+            title: "Samsung",
+            description: "new Samsung",
+            price: 5999,
+            image: "img/samsung.jpg",
+            availableInventory: 10,
+            rating: 3
+          },
+          {
+            id: 1003,
+            title: "MI",
+            description: "new MI",
+            price: 4999,
+            image: "img/mi.jpg",
+            availableInventory: 5,
+            rating: 4
+          },
+        ]
+      },
+      created(){
+        console.log(111);
+      },
+      computed: {
+        showPrice(){
+          return function(price) {
+            return '¥'+price.toFixed(2);
+          }
+        }
+      },
+      methods: {
+        addToCart(index){
+          this.totalPrice += this.products[index].price
+          this.products[index].availableInventory--;
+          this.count++;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

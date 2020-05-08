@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/info.css">
+</head>
+<body>
+  <form action="" >
+    <div class="person-info" id="person-info">
+      <label for="last-name">姓</label>
+      <input type="text" name="last-name" id="" v-model="personInfo.lastName">
+      <label for="name">名字</label>
+      <input type="text" name="name" id="name" v-model="personInfo.name">
+      <label for="address">地址</label>
+      <input type="text" name="address" id="address" v-model="personInfo.address">
+      <label for="city">城市</label>
+      <input type="text" name="city" id="city" v-model="personInfo.city">
+      <label for="province">省份</label>
+      <select name="province" v-model="personInfo.province">
+        <option v-for="item in province" :value="item">{{item}}</option>
+      </select>
+      <label for="code">邮编</label>
+      <input type="number" name="code" id="code" v-model="personInfo.code">    
+      <div v-for="(value, key) in personInfo">
+        {{key+":"+value}}
+      </div>
+    </div>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#person-info',
+      data: {
+        province: [
+          "北京",
+          "上海",
+          "广州",
+          "深圳",
+        ],
+        personInfo: {
+          lastName: '',
+          name: '',
+          address: '',
+          city: '',
+          province: '北京',
+          code: ''
+        }
+      },
+      
+    })
+  </script>
+</body>
+</html>
