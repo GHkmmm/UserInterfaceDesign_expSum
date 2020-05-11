@@ -47,6 +47,12 @@ a{
   position: relative;
   top: 3px;
 }
+.none{
+  margin-top: 300px;
+  text-align: center;
+  color: #999;
+  letter-spacing: 10px;
+}
 .bottom{
   width: 100%;
   line-height: 48px;

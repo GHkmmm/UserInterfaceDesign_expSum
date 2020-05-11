@@ -9,15 +9,15 @@
 </head>
 <body>
   <div id="mall">
-    <div class="shop-list">
-      <div class="shop-list-item" v-for="(item,index) in products">
+    <div class="shop-list" v-if="products.length>0">
+      <div class="shop-list-item" v-for="(item,index) in products" v-if="item.availableInventory!=0">
         <div class=""><img :src="item.image" alt=""></div>
         <div class="info">
           <h1>{{item.title}}</h1>
           <div>{{item.description}}</div>
           <div class="price">{{showPrice(item.price)}}</div>
           <div class="others">
-            <div class="add-cart-btn" @click="addToCart(index)">加入购物车</div>
+            <button class="add-cart-btn" @click="addToCart(index)" :disabled="item.availableInventory == 0">加入购物车</button>
             <span>{{"库存剩余:"+item.availableInventory}}</span>
             <div v-for="(v,i) in 5" class="star">
               <div v-if="i <= item.rating"><img src="img/star_active.svg" alt=""></div>
@@ -26,6 +26,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="none">
+      <h1>暂无商品</h1>
     </div>
     <div class="bottom">
       <span>合计：{{showPrice(totalPrice)}}</span>
@@ -47,7 +50,7 @@
             description: "new iPhone",
             price: 5999,
             image: "img/apple.jpg",
-            availableInventory: 10,
+            availableInventory: 3,
             rating: 4
           },
           {
@@ -56,7 +59,7 @@
             description: "new Samsung",
             price: 5999,
             image: "img/samsung.jpg",
-            availableInventory: 10,
+            availableInventory: 2,
             rating: 3
           },
           {
@@ -65,13 +68,10 @@
             description: "new MI",
             price: 4999,
             image: "img/mi.jpg",
-            availableInventory: 5,
+            availableInventory: 1,
             rating: 4
           },
         ]
-      },
-      created(){
-        console.log(111);
       },
       computed: {
         showPrice(){
@@ -85,6 +85,9 @@
           this.totalPrice += this.products[index].price
           this.products[index].availableInventory--;
           this.count++;
+          if(this.products[index].availableInventory == 0){
+            this.products.splice(index, 1);
+          }
         }
       }
     })
